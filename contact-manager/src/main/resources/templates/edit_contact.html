@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Contact</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            padding: 0;
+            margin: 0;
+            background-color: #f2f2f2;
+        }
+        .header {
+            background: #4CAF50;
+            color: white;
+            padding: 24px 0 16px 0;
+            text-align: center;
+            box-shadow: 0 2px 8px #0001;
+            margin-bottom: 30px;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px #0002;
+            padding: 32px 24px 24px 24px;
+        }
+        h1 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 24px;
+        }
+        form {
+            width: 100%;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 500;
+            color: #222;
+        }
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            background: #fafbfc;
+            transition: border 0.2s;
+        }
+        input[type="text"]:focus,
+        input[type="email"]:focus {
+            border: 1.5px solid #2196F3;
+            outline: none;
+        }
+        .error {
+            color: #d32f2f;
+            font-size: 0.95em;
+            margin-top: 4px;
+        }
+        button[type="submit"] {
+            margin-top: 28px;
+            width: 100%;
+            padding: 12px;
+            background: #4CAF50;
+            border: none;
+            color: white;
+            font-size: 1.1em;
+            border-radius: 6px;
+            font-weight: 600;
+            box-shadow: 0 2px 6px #2196f344;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        button[type="submit"]:hover {
+            background: #388e3c;
+            box-shadow: 0 4px 12px #2196f366;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 12px 2px;
+            }
+            h1 {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Edit Contact</h1>
+</div>
+
+<div class="container">
+    <form action="/update" method="post" th:object="${contact}">
+        <input type="hidden" th:field="*{id}" />
+
+        <label>First Name:
+            <input type="text" th:field="*{firstName}" required />
+            <div class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+        </label>
+        
+        <label>Last Name:
+            <input type="text" th:field="*{lastName}" required />
+            <div class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+        </label>
+        
+        <label>Address:
+            <input type="text" th:field="*{address}" required />
+            <div class="error" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
+        </label>
+        
+        <label>Email:
+            <input type="email" th:field="*{email}" required />
+            <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+            <div class="error" th:if="${EmailError}" th:text="${EmailError}"></div>
+        </label>
+        
+        <label>Phone:
+            <input type="text" th:field="*{phone}" required />
+            <div class="error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
+            <div class="error" th:if="${PhoneError}" th:text="${PhoneError}"></div>
+        </label>
+        
+        <button type="submit">Update Contact</button>
+    </form>
+</div>
+
+</body>
+</html>
+
